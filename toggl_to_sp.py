@@ -133,14 +133,13 @@ def migrate(backup_path, csv_paths, output_path):
     if "task" not in ay:
         ay["task"] = {"ids": [], "entities": {}}
 
-    # Load CSVs
+
     all_rows = []
     for path in csv_paths:
         print(f"Reading CSV: {path}")
         all_rows.extend(load_csv(path))
     print(f"\nTotal Toggl entries: {len(all_rows)}")
 
-    # Build existing project/tag name lookups
     existing_projects = {}   # title.lower() → id
     for pid, proj in d["project"]["entities"].items():
         existing_projects[proj["title"].strip().lower()] = pid
@@ -313,7 +312,7 @@ def migrate(backup_path, csv_paths, output_path):
         json.dump(sp, f, ensure_ascii=False, separators=(",", ":"))
 
     size_kb = os.path.getsize(output_path) / 1024
-    print(f"\n✅ Done! Output: {output_path} ({size_kb:.1f} KB)")
+    print(f"\n Done! Output: {output_path} ({size_kb:.1f} KB)")
     print(f"   Projects injected : {len(new_projects)}")
     print(f"   Tags injected     : {len(new_tags)}")
     print(f"   Tasks (archive)   : {len(new_archive_tasks)}")
