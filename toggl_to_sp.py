@@ -11,9 +11,8 @@ from collections import defaultdict
 from datetime import datetime
 
 
-# ---------------------------------------------------------------------------
+
 # ID generation
-# ---------------------------------------------------------------------------
 
 _ID_CHARS = string.ascii_letters + string.digits + "_-"
 
@@ -21,9 +20,8 @@ def new_id(length: int = 22) -> str:
     return "".join(random.choices(_ID_CHARS, k=length))
 
 
-# ---------------------------------------------------------------------------
+
 # Time helpers
-# ---------------------------------------------------------------------------
 
 def parse_toggl_datetime(date_str: str, time_str: str) -> datetime:
     return datetime.strptime(f"{date_str.strip()} {time_str.strip()}", "%Y-%m-%d %H:%M:%S")
@@ -39,9 +37,9 @@ def duration_to_ms(dur_str: str) -> int:
     return (h * 3600 + m * 60 + s) * 1000
 
 
-# ---------------------------------------------------------------------------
+ 
 # CSV loading
-# ---------------------------------------------------------------------------
+ 
 
 def load_csv(filepath: str) -> list:
     rows = []
@@ -55,9 +53,9 @@ def load_csv(filepath: str) -> list:
     return rows
 
 
-# ---------------------------------------------------------------------------
+ 
 # SP entity factories — field-for-field match with real backup schema
-# ---------------------------------------------------------------------------
+ 
 
 _PROJECT_THEME = {
     "isAutoContrast": True, "isDisableBackgroundTint": False,
@@ -110,9 +108,9 @@ def make_archive_task(task_id, title, project_id, tag_ids,
     }
 
 
-# ---------------------------------------------------------------------------
+ 
 # Migration
-# ---------------------------------------------------------------------------
+ 
 
 def migrate(backup_path, csv_paths, output_path):
     print(f"\nLoading base backup: {backup_path}")
@@ -318,9 +316,9 @@ def migrate(backup_path, csv_paths, output_path):
     print(f"   Tasks (archive)   : {len(new_archive_tasks)}")
 
 
-# ---------------------------------------------------------------------------
+ 
 # CLI
-# ---------------------------------------------------------------------------
+ 
 
 def main():
     parser = argparse.ArgumentParser(
